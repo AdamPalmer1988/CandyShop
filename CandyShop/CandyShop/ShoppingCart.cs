@@ -3,9 +3,10 @@
 public class ShoppingCart
 {
     //properties
-    public List<CandyItem> shoppingCartItems { get; set; }
+    public List<CandyItem> shoppingCartItems { get; set; } = new List<CandyItem>();   
 
     //constructor
+
 
     //method
     public void AddItem(CandyItem item)
@@ -23,9 +24,10 @@ public class ShoppingCart
         else 
         { 
             Console.WriteLine("Items in your cart:");
-            foreach (var item in shoppingCartItems)
+            var itemCounts = shoppingCartItems.GroupBy(item => item).Select(group => new {Candy=group.Key,Count=group.Count()});
+            foreach (var item in itemCounts)
             {
-                Console.WriteLine($"{item.Name}: ${item.Price}");
+                Console.WriteLine($"{item.Candy.Name}: ${item.Candy.Price} Amount: {item.Count}");
             }
         }
     }
@@ -46,13 +48,11 @@ public class ShoppingCart
         if (shoppingCartItems.Count == 0)
         {
             Console.WriteLine("Nothing to checkout.");
-            return;
         }
 
         decimal total = CalculateTotal();
         Console.WriteLine($"\nTotal: ${total:F2}");
         Console.WriteLine("Thank you for your purchase!");
-        shoppingCartItems.Clear();
     }
 
 }
