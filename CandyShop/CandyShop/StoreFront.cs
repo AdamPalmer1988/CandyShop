@@ -54,4 +54,9 @@ public class StoreFront
             }
     }
 
+    public CandyItem getCandyItem(int index)
+    {
+        return stockItems[index];
+    }
+
 }
