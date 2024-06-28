@@ -6,19 +6,20 @@ ShoppingCart completedOrders = new ShoppingCart();
 PaymentMethod money = new PaymentMethod(50);
 bool errorTest = true;
 
+string keepPlaying = "Y";
+
+Console.WriteLine("Welcome to the Candy Shop");
+
+Console.ForegroundColor = ConsoleColor.Green;
+
+Console.WriteLine($"You have ${money.getBalance()} to spend.");
+
+Console.ResetColor();
+
 
 while (errorTest)
 {
-    string keepPlaying = "Y";
 
-
-    Console.WriteLine("Welcome to the Candy Shop");
-
-    Console.ForegroundColor = ConsoleColor.Green;
-
-    Console.WriteLine($"You have ${money.getBalance()} to spend.");
-
-    Console.ResetColor();
 
     Console.WriteLine("\nThis is our current inventory");//should we put this in storefront?
 
@@ -30,12 +31,6 @@ while (errorTest)
 
     string numberChoice = Console.ReadLine();
     int stringNumberChoice = int.Parse(numberChoice);
-
- /*
-    Console.WriteLine("How many would you like to buy?");
-    string quantityChoice = Console.ReadLine();
-    int stringQuantityChoice = int.Parse(quantityChoice);
-*/
 
     if (stringNumberChoice < 1 || stringNumberChoice > willyWonka.stockItems.Count)
     {
@@ -62,13 +57,19 @@ while (errorTest)
 Console.WriteLine("What would you like to do next?");
 Console.WriteLine("1. Display Cart");
 Console.WriteLine("2. Checkout");
-//Console.WriteLine("3. Put Items Back");
 
 string userOption = Console.ReadLine();
 
 if (userOption == "1")
 {
     shoppingBasket.DisplayCart();
+    Console.WriteLine("Would you like to checkout?");
+    string checkoutOption = Console.ReadLine();
+
+    if (checkoutOption == "Y")
+    {
+        shoppingBasket.Checkout();
+    }
 }
 
 else if (userOption == "2") //maybe switch case 
