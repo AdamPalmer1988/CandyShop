@@ -1,12 +1,17 @@
-﻿namespace CandyShop;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CandyShop;
 
 public class StoreFront
 {
     public List<CandyItem> stockItems { get; set; } = new List<CandyItem>();    
 
     //constructor
+
+
     public StoreFront()
     {
+
         CandyItem tootsieRoll = new CandyItem("Tootsie Roll", 0.05m);
         CandyItem blowPops = new CandyItem("Blow Pops", 0.25m);
         CandyItem jawBreaker = new CandyItem("Jaw Breaker", 1.00m);
@@ -45,8 +50,8 @@ public class StoreFront
             else
             {
             int counter = 1;
-                Console.WriteLine("Items in your storefront:");
-                foreach (var item in stockItems)
+                Console.WriteLine("Items in your storefront:");//should we put this here so it is not redundant Console.WriteLine("\nThis is our current inventory");
+            foreach (var item in stockItems)
                 {
                     Console.WriteLine($"{counter}. {item.Name}: Price: ${item.Price}");
                     counter++;

@@ -11,13 +11,22 @@ while (errorTest)
 {
     string keepPlaying = "Y";
 
+
     Console.WriteLine("Welcome to the Candy Shop");
+
+    Console.ForegroundColor = ConsoleColor.Green;
+
     Console.WriteLine($"You have ${money.getBalance()} to spend.");
-    Console.WriteLine("This is our current inventory");
+
+    Console.ResetColor();
+
+    Console.WriteLine("\nThis is our current inventory");//should we put this in storefront?
 
     willyWonka.displayStoreFront();
 
-    Console.WriteLine("Please select the item number you wish to add to your shopping cart");
+   Console.WriteLine("\nPlease select the item number you wish to add to your shopping cart");
+
+
 
     string numberChoice = Console.ReadLine();
     int stringNumberChoice = int.Parse(numberChoice);
@@ -38,15 +47,15 @@ while (errorTest)
         shoppingBasket.AddItem(willyWonka.getCandyItem(stringNumberChoice - 1));
     }
 
-    Console.WriteLine("Would you like to continue? Y/N");
-    keepPlaying = Console.ReadLine();
+    Console.WriteLine("Would you like to continue? (Y/N) ");
+    keepPlaying = Console.ReadLine();   //allow input to be upper or lower?
 
     if (keepPlaying == "Y")
     {
         errorTest = true;
     }
 
-    else { errorTest = false; }
+    else { errorTest = false; } 
   
 }
 
@@ -77,26 +86,74 @@ else if (userOption == "2") //maybe switch case
 
     else if (userPaymentMethod == "Credit")
     {
-        Console.WriteLine("Please enter your 12 digit credit card number:"); //What if incorrect credit card number
-        string creditCardNumber = Console.ReadLine();
 
-        Console.WriteLine("Please enter your 4 digit expiration date. In example, if your expiration date is March 2024" +
-            "you would enter 0324"); //In the past? Not 4 digits?
+
+        Console.WriteLine("Please enter your 12-digit credit card number:");
+        string cardNumber = Console.ReadLine();
+
+        while (!IsValidCreditCardNumber(cardNumber))
+        {
+            Console.WriteLine("Invalid credit card number. Please enter a 12-digit credit card number:");
+            cardNumber = Console.ReadLine();
+        }
+
+        Console.WriteLine("Please enter your 4-digit expiration date (MMYY):");
         string expirationDate = Console.ReadLine();
+        while (!IsValidExpirationDate(expirationDate))
+        {
+            Console.WriteLine("Invalid expiration date. Please enter a 4-digit expiration date (MMYY):");
+            expirationDate = Console.ReadLine();
+        }
 
-        Console.WriteLine("Please enter your 3 digit cvv found on the back of your card."); //What if its not 3 digits
+        Console.WriteLine("Please enter your 3-digit CVV:");
         string cvv = Console.ReadLine();
+        while (!IsValidCVV(cvv))
+        {
+            Console.WriteLine("Invalid CVV. Please enter a 3-digit CVV:");
+            cvv = Console.ReadLine();
+        }
 
-        money.creditPayment(creditCardNumber, expirationDate, cvv);
+        Console.WriteLine("Credit card information is valid!");
+        shoppingBasket.Checkout();
+
+
+        static bool IsValidCreditCardNumber(string cardNumber)
+        {
+            return cardNumber.Length == 12 && long.TryParse(cardNumber, out _);
+        }
+
+        static bool IsValidExpirationDate(string expirationDate)
+        {
+            return expirationDate.Length == 4 && int.TryParse(expirationDate, out _);
+        }
+
+        static bool IsValidCVV(string cvv)
+        {
+            return cvv.Length == 3 && int.TryParse(cvv, out _);
+        }
+    }
+
+
+    else if (userPaymentMethod == "Check")
+
+    
+    {
+        Console.WriteLine("Please enter your 9-12 digit account number on check:");
+        string accountNumber = Console.ReadLine();
+        while (!IsValidAccountNumber(accountNumber))
+        {
+            Console.WriteLine("Invalid account number. Please enter a 9-12 digit account number:");
+            accountNumber = Console.ReadLine();
+        }
+
+        Console.WriteLine("Account number is valid!");
         shoppingBasket.Checkout();
     }
 
-    else if (userPaymentMethod == "Check")
+    static bool IsValidAccountNumber(string accountNumber)
     {
-        Console.WriteLine("Please enter your check number:");
-        string checkNumber = Console.ReadLine();
-        money.checkPayment(checkNumber);
-        shoppingBasket.Checkout();
+        // Check if the account number length is between 9 and 12 and contains only digits
+        return accountNumber.Length >= 9 && accountNumber.Length <= 12 && long.TryParse(accountNumber, out _);
     }
 
 }
