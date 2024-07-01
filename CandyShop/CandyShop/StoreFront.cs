@@ -50,7 +50,7 @@ public class StoreFront
             else
             {
             int counter = 1;
-                Console.WriteLine("Items in your storefront:");//should we put this here so it is not redundant Console.WriteLine("\nThis is our current inventory");
+
             foreach (var item in stockItems)
                 {
                     Console.WriteLine($"{counter}. {item.Name}: Price: ${item.Price}");

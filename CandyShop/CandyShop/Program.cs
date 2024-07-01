@@ -1,4 +1,7 @@
 ﻿using CandyShop;
+using Spectre.Console;
+using System.Runtime.CompilerServices;
+
 
 StoreFront willyWonka = new StoreFront();
 ShoppingCart shoppingBasket = new ShoppingCart();
@@ -6,27 +9,43 @@ ShoppingCart completedOrders = new ShoppingCart();
 PaymentMethod money = new PaymentMethod(50);
 bool errorTest = true;
 
+ string keepPlaying = "Y";
+AnsiConsole.Write(new FigletText("Willy Wonka").Centered().Color(Color.Yellow3_1));
+
+
+
+
+
+AnsiConsole.Write(
+           new Panel(new Text("To the Candy Shop").Centered())
+               .Expand()
+               .AsciiBorder()
+               .Header("Welcome")
+               .HeaderAlignment(Justify.Center));
+
+
+//Console.WriteLine("Welcome to the Candy Shop!");
+
+Console.ForegroundColor = ConsoleColor.Green;
+
+Console.WriteLine($"You have ${money.getBalance()} to spend.");
+
+Console.ResetColor();
+
+
 
 while (errorTest)
 {
-    string keepPlaying = "Y";
 
-
-    Console.WriteLine("Welcome to the Candy Shop");
-
-    Console.ForegroundColor = ConsoleColor.Green;
-
-    Console.WriteLine($"You have ${money.getBalance()} to spend.");
-
-    Console.ResetColor();
-
-    Console.WriteLine("\nThis is our current inventory");//should we put this in storefront?
+    Console.WriteLine("\nThis is our current inventory:");
 
     willyWonka.displayStoreFront();
 
-   Console.WriteLine("\nPlease select the item number you wish to add to your shopping cart");
 
 
+    Console.WriteLine("\nPlease select the item number you wish to add to your shopping cart");
+
+    
 
     string numberChoice = Console.ReadLine();
     int stringNumberChoice = int.Parse(numberChoice);
@@ -48,9 +67,9 @@ while (errorTest)
     }
 
     Console.WriteLine("Would you like to continue? (Y/N) ");
-    keepPlaying = Console.ReadLine();   //allow input to be upper or lower?
+    keepPlaying = Console.ReadLine();  
 
-    if (keepPlaying == "Y")
+    if (keepPlaying.ToUpper() == "Y")
     {
         errorTest = true;
     }
