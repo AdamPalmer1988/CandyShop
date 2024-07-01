@@ -1,4 +1,4 @@
-﻿using CandyShop;
+using CandyShop;
 using Spectre.Console;
 using System.Runtime.CompilerServices;
 
@@ -9,9 +9,9 @@ ShoppingCart completedOrders = new ShoppingCart();
 PaymentMethod money = new PaymentMethod(50);
 bool errorTest = true;
 
+
  string keepPlaying = "Y";
 AnsiConsole.Write(new FigletText("Willy Wonka").Centered().Color(Color.Yellow3_1));
-
 
 
 
@@ -34,6 +34,7 @@ Console.ResetColor();
 
 
 
+
 while (errorTest)
 {
 
@@ -49,12 +50,6 @@ while (errorTest)
 
     string numberChoice = Console.ReadLine();
     int stringNumberChoice = int.Parse(numberChoice);
-
- /*
-    Console.WriteLine("How many would you like to buy?");
-    string quantityChoice = Console.ReadLine();
-    int stringQuantityChoice = int.Parse(quantityChoice);
-*/
 
     if (stringNumberChoice < 1 || stringNumberChoice > willyWonka.stockItems.Count)
     {
@@ -81,13 +76,19 @@ while (errorTest)
 Console.WriteLine("What would you like to do next?");
 Console.WriteLine("1. Display Cart");
 Console.WriteLine("2. Checkout");
-//Console.WriteLine("3. Put Items Back");
 
 string userOption = Console.ReadLine();
 
 if (userOption == "1")
 {
     shoppingBasket.DisplayCart();
+    Console.WriteLine("Would you like to checkout?");
+    string checkoutOption = Console.ReadLine();
+
+    if (checkoutOption == "Y")
+    {
+        shoppingBasket.Checkout();
+    }
 }
 
 else if (userOption == "2") //maybe switch case 
