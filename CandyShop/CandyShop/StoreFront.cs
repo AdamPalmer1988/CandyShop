@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CandyShop;
 
@@ -50,6 +50,7 @@ public class StoreFront
             else
             {
             int counter = 1;
+
             foreach (var item in stockItems)
                 {
                     Console.WriteLine($"{counter}. {item.Name}: Price: ${item.Price}");
